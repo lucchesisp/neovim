@@ -154,6 +154,21 @@ After opening Neovim, type `:MasonInstallAll` and press Enter.
 
 ## ⌨️ NvChad / Neovim Commands
 
+### macOS Keyboard Notes
+
+- **Function keys (F1-F12)**: On Mac keyboards without a numeric keypad, press `fn` + F key
+- **Control (Ctrl)**: Works normally in Terminal.app
+- **Option (⌥)**: Functions as Alt key (`<M-...>` in Neovim)
+- **Command (⌘)**: Not used in Neovim by default (use Ctrl instead)
+
+**Keymapping adjustments for macOS:**
+- `<F5>` = `fn` + `F5` (or just F5 on full keyboards)
+- `<F10>` = `fn` + `F10` (or just F10 on full keyboards)
+- `<F11>` = `fn` + `F11` (or just F11 on full keyboards)
+- `<F12>` = `fn` + `F12` (or just F12 on full keyboards)
+- `<C-p>` = `Ctrl` + `p`
+- `<leader>` = `Space` (default in NvChad)
+
 ### File Explorer (NvimTree)
 
 | Action | Command / Keybinding |
@@ -445,10 +460,10 @@ After opening Neovim, type `:MasonInstallAll` and press Enter.
 | Test nearest | `:lua require('neotest').run.run({strategy = 'nearest'})` |
 | Test file with debug | `:lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})` |
 | Toggle breakpoint | `<leader>b` |
-| Continue debugging | `<F5>` |
-| Step over | `<F10>` |
-| Step into | `<F11>` |
-| Step out | `<F12>` |
+| Continue debugging | `fn` + `F5` |
+| Step over | `fn` + `F10` |
+| Step into | `fn` + `F11` |
+| Step out | `fn` + `F12` |
 | Show dapui | `<leader>du` |
 | Toggle dapui | `<leader>de` |
 | Evaluate expression | `<leader>de` |
@@ -685,13 +700,13 @@ Use Mason to install debug adapters:
 
 Install: delve, debugpy
 
-### Keymaps
+### Keymaps (macOS)
 
 #### Debug Controls
-- `<F5>` - Start/Continue debugging
-- `<F10>` - Step over
-- `<F11>` - Step into
-- `<F12>` - Step out
+- `fn` + `F5` - Start/Continue debugging (or just F5 on full keyboards)
+- `fn` + `F10` - Step over (or just F10 on full keyboards)
+- `fn` + `F11` - Step into (or just F11 on full keyboards)
+- `fn` + `F12` - Step out (or just F12 on full keyboards)
 
 #### Breakpoints
 - `<leader>b` - Toggle breakpoint
@@ -708,17 +723,17 @@ Install: delve, debugpy
 
 #### Python
 1. Open Python file
-2. Press `<F5>` to start debugging
+2. Press `fn` + `F5` to start debugging
 3. Use breakpoints to step through code
 
 #### Go
 1. Open Go file
-2. Press `<F5>` to start debugging
+2. Press `fn` + `F5` to start debugging
 3. Select "Debug" or "Debug test" configuration
 
 #### Java
 1. Open Java file in a project with build system (Maven/Gradle)
-2. Press `<F5>` to start debugging
+2. Press `fn` + `F5` to start debugging
 3. jdtls will automatically configure the debugger
 
 ### Note on Debug Adapters
@@ -728,7 +743,7 @@ Each language requires its own debug adapter:
 - Java uses jdtls (built-in)
 - Python uses debugpy
 
-There is no universal debugger - each adapter communicates with the specific runtime and toolchain of its language.
+There is no universal debugger - each adapter communicates with specific runtime and toolchain of its language.
 
 ---
 
@@ -791,7 +806,7 @@ Install these LSPs via Mason (`:Mason`):
 ### Multi-file Search Workflow
 ```vim
 " 1. Use <leader>fw to search across all files (Telescope live grep)
-" 2. Press <C-o> to open in split, <C-v> for vsplit
+" 2. Press Ctrl+o to open in split, Ctrl+v for vsplit
 " 3. Use :copen to see all matches in quickfix
 ```
 
@@ -820,11 +835,11 @@ Install these LSPs via Mason (`:Mason`):
 " 4. <leader>gg (open lazygit for commits)
 ```
 
-### Debugging Workflow
+### Debugging Workflow (macOS)
 ```vim
 " 1. <leader>b (toggle breakpoint)
-" 2. <F5> (start debugging)
-" 3. <F10> (step over) / <F11> (step into)
+" 2. fn+F5 (start debugging)
+" 3. fn+F10 (step over) / fn+F11 (step into)
 " 4. <leader>de (evaluate expression)
 " 5. <leader>du (show dap UI)
 ```
@@ -832,7 +847,7 @@ Install these LSPs via Mason (`:Mason`):
 ### File Organization Workflow
 ```vim
 " 1. :e . (open file explorer)
-" 2. Use Telescope <C-p> for fuzzy finding
+" 2. Use Telescope Ctrl+p for fuzzy finding
 " 3. :bd to close buffers you don't need
 " 4. :wa to save all buffers before commits
 ```
