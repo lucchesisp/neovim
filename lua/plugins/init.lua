@@ -25,4 +25,23 @@ return {
   -- 		},
   -- 	},
   -- },
+
+  -- DAP plugins
+  {
+    "mfussenegger/nvim-dap",
+    dependencies = {
+      "rcarriga/nvim-dap-ui",
+      "theHamsta/nvim-dap-virtual-text",
+      "nvim-neotest/nvim-nio",
+    },
+    config = function()
+      require "configs.dap"
+    end,
+    keys = {
+      "<F5>",
+      "<F10>",
+      "<F11>",
+      "<F12>",
+    },
+  },
 }
