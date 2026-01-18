@@ -43,7 +43,7 @@ require("nvim-dap-virtual-text").setup {
 dap.adapters.python = function(cb)
   cb({
     type = "executable",
-    command = vim.fn.exepath "debugpy-adapter",
+    command = vim.fn.exepath "debugpy-adapter" or vim.fn.expand "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python -m debugpy.adapter",
     args = {},
   })
 end
@@ -78,7 +78,7 @@ dap.adapters.delve = {
   type = "server",
   port = "${port}",
   executable = {
-    command = "dlv",
+    command = vim.fn.exepath "dlv" or vim.fn.expand "~/.local/share/nvim/mason/packages/delve/dlv",
     args = { "dap", "-l", "127.0.0.1:${port}" },
   },
 }
