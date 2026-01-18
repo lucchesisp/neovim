@@ -44,4 +44,9 @@ return {
       "<F12>",
     },
   },
+  {
+    "sindrets/diffview.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = true,
+  },
 }
