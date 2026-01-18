@@ -3,22 +3,84 @@ local dapui = require "dapui"
 
 dapui.setup()
 
+-- Configuração de ícones e cores para o DAP
+vim.fn.sign_define("DapBreakpoint", {
+  text = "●",
+  texthl = "DapBreakpoint",
+  linehl = "",
+  numhl = "DapBreakpoint",
+})
+
+vim.fn.sign_define("DapBreakpointCondition", {
+  text = "◆",
+  texthl = "DapBreakpoint",
+  linehl = "",
+  numhl = "DapBreakpoint",
+})
+
+vim.fn.sign_define("DapBreakpointRejected", {
+  text = "○",
+  texthl = "DapBreakpoint",
+  linehl = "",
+  numhl = "DapBreakpoint",
+})
+
+vim.fn.sign_define("DapLogPoint", {
+  text = "◉",
+  texthl = "DapLogPoint",
+  linehl = "",
+  numhl = "DapLogPoint",
+})
+
+vim.fn.sign_define("DapStopped", {
+  text = "→",
+  texthl = "DapStopped",
+  linehl = "DapStoppedLine",
+  numhl = "DapStopped",
+})
+
+-- Configuração de cores
+vim.api.nvim_set_hl(0, "DapBreakpoint", { fg = "#e06c75" })       -- Vermelho
+vim.api.nvim_set_hl(0, "DapLogPoint", { fg = "#61afef" })         -- Azul
+vim.api.nvim_set_hl(0, "DapStopped", { fg = "#98c379" })          -- Verde
+vim.api.nvim_set_hl(0, "DapStoppedLine", { bg = "#2d4d2d" })      -- Fundo verde escuro
+
+-- Cores para texto virtual (valores das variáveis)
+vim.api.nvim_set_hl(0, "NvimDapVirtualText", { fg = "#61afef", italic = true })           -- Azul claro
+vim.api.nvim_set_hl(0, "NvimDapVirtualTextChanged", { fg = "#e5c07b", bold = true })      -- Laranja quando muda
+vim.api.nvim_set_hl(0, "NvimDapVirtualTextError", { fg = "#e06c75" })                     -- Vermelho para erros
+vim.api.nvim_set_hl(0, "NvimDapVirtualTextInfo", { fg = "#56b6c2" })                      -- Ciano para info
+
 dap.listeners.after.event_initialized["dapui_config"] = function()
   dapui.open()
 end
 
 require("nvim-dap-virtual-text").setup {
-  enabled = true,
-  enabled_commands = true,
-  highlight_changed_variables = true,
-  highlight_new_as_changed = false,
-  show_stop_reason = true,
-  commented = false,
-  only_first_definition = true,
-  all_references = false,
-  clear_on_continue = false,
+  enabled = true,                        -- Habilita o virtual text
+  enabled_commands = true,               -- Habilita comandos :DapVirtualTextEnable, etc
+  highlight_changed_variables = true,    -- Destaca variáveis que mudaram
+  highlight_new_as_changed = true,       -- Mostra variáveis novas como alteradas
+  show_stop_reason = true,               -- Mostra o motivo da parada
+  commented = false,                     -- Não mostra como comentário
+  only_first_definition = true,          -- Mostra apenas na primeira definição
+  all_references = false,                -- Não mostra em todas as referências
+  clear_on_continue = false,             -- Não limpa ao continuar
+
+  -- Formato do texto virtual
+  display_callback = function(variable, buf, stackframe, node, options)
+    if options.virt_text_pos == 'inline' then
+      return ' = ' .. variable.value
+    else
+      return variable.name .. ' = ' .. variable.value
+    end
+  end,
+
+  -- Posição: inline (na mesma linha) ou eol (fim da linha)
   virt_text_pos = vim.fn.has "nvim-0.10" == 1 and "inline" or "eol",
-  all_frames = false,
+
+  all_frames = false,                    -- Mostra apenas o frame atual
+  virt_lines = false,                    -- Não usa linhas virtuais
+  virt_text_win_col = nil,              -- Posição automática
 }
 
 -- Python
