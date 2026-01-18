@@ -69,9 +69,16 @@ dap.adapters.delve = {
 dap.configurations.go = {
   {
     type = "delve",
-    name = "Debug",
+    name = "Debug (package)",
+    request = "launch",
+    program = "./${relativeFileDirname}",
+  },
+  {
+    type = "delve",
+    name = "Debug (file)",
     request = "launch",
     program = "${file}",
+    mode = "debug",
   },
   {
     type = "delve",
