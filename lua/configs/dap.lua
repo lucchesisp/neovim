@@ -1,28 +1,11 @@
 local dap = require "dap"
 local dapui = require "dapui"
 
-dapui.setup {
-  layouts = {
-    {
-      elements = {
-        { id = "scopes", size = 0.25 },
-        { id = "breakpoints", size = 0.25 },
-        { id = "stacks", size = 0.25 },
-        { id = "watches", size = 0.25 },
-      },
-      size = 40,
-      position = "left",
-    },
-    {
-      elements = {
-        { id = "repl", size = 0.5 },
-        { id = "console", size = 0.5 },
-      },
-      size = 10,
-      position = "bottom",
-    },
-  },
-}
+dapui.setup()
+
+dap.listeners.after.event_initialized["dapui_config"] = function()
+  dapui.open()
+end
 
 require("nvim-dap-virtual-text").setup {
   enabled = true,
@@ -35,8 +18,7 @@ require("nvim-dap-virtual-text").setup {
   all_references = false,
   clear_on_continue = false,
   virt_text_pos = vim.fn.has "nvim-0.10" == 1 and "inline" or "eol",
-  all_frames = true,
-  virt_text_win_col = 80,
+  all_frames = false,
 }
 
 -- Python
