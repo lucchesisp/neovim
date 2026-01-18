@@ -246,6 +246,20 @@ After opening Neovim, type `:MasonInstallAll` and press Enter.
 | Previous diagnostic | `[d` |
 | Show line diagnostics | `gl` |
 
+### Import Management (Go/Python/TS/Java)
+
+| Action | Command / Keybinding |
+|--------|---------------------|
+| Organize imports (Go) | `<leader>oi` |
+| Remove unused imports (Go) | `<leader>ri` |
+| Add missing import (all) | Type symbol and use code action `<leader>ca` |
+
+**Go Import Features:**
+- **Auto-add imports**: When you type a symbol from another package, gopls automatically suggests adding the import
+- **Auto-remove imports**: On save/format, unused imports are automatically removed
+- **Organize imports**: Groups and sorts imports according to Go conventions
+- **Format on save**: Go files are automatically formatted with `gofumpt` (improved gofmt)
+
 ### Search and Navigation
 
 | Action | Command / Keybinding |

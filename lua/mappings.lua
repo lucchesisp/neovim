@@ -25,3 +25,18 @@ map("n", "<leader>dr", dap.repl.open, { desc = "Debug: Open REPL" })
 map("n", "<leader>dl", dap.run_last, { desc = "Debug: Run Last" })
 map("n", "<leader>du", require("dapui").toggle, { desc = "Debug: Toggle UI" })
 map("n", "<leader>de", dapui.eval, { desc = "Debug: Evaluate Expression" })
+
+-- Import management
+map("n", "<leader>oi", function()
+  vim.lsp.buf.code_action {
+    context = { only = { "source.organizeImports" } },
+    apply = true,
+  }
+end, { desc = "LSP: Organize Imports" })
+
+map("n", "<leader>ri", function()
+  vim.lsp.buf.code_action {
+    context = { only = { "source.removeUnusedImports" } },
+    apply = true,
+  }
+end, { desc = "LSP: Remove Unused Imports" })
