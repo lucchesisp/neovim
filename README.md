@@ -733,6 +733,67 @@ Install: delve, debugpy
 - `<leader>dl` - Run last debug session
 - `<leader>de` - Evaluate expression (visual selection or input)
 
+### nvim-dap-virtual-text Configuration
+
+This plugin displays variable values directly in your code during debugging sessions using virtual text.
+
+#### Configuration Options
+
+| Option | Value | Description |
+|--------|--------|-------------|
+| `enabled` | `true` | Enable the plugin |
+| `enabled_commands` | `true` | Create commands: DapVirtualTextEnable, DapVirtualTextDisable, DapVirtualTextToggle |
+| `highlight_changed_variables` | `true` | **Highlight changed variable values** with NvimDapVirtualTextChanged (yellow/warn color) |
+| `highlight_new_as_changed` | `false` | Highlight new variables the same way as changed variables |
+| `show_stop_reason` | `true` | Show stop reason when stopped for exceptions |
+| `commented` | `false` | Prefix virtual text with comment string |
+| `only_first_definition` | `true` | Only show virtual text at first definition (if there are multiple) |
+| `all_references` | `false` | Show virtual text on all references of variable (not only definitions) |
+| `clear_on_continue` | `false` | Clear virtual text on "continue" (might cause flickering) |
+| `virt_text_pos` | `'inline'` (Neovim 0.10+) or `'eol'` | Position of virtual text in line or at end of line |
+| `all_frames` | `true` | Show virtual text for all stack frames, not only current |
+| `virt_text_win_col` | `80` | Position virtual text at fixed window column (80) for alignment |
+
+#### Highlight Groups
+
+- `NvimDapVirtualText` - Variable values (linked to Comment, green/gray)
+- `NvimDapVirtualTextChanged` - Changed variable values (linked to DiagnosticVirtualTextWarn, yellow)
+- `NvimDapVirtualTextError` - Exception messages (linked to DiagnosticVirtualTextError, red)
+
+#### How It Works
+
+**Example of debugging a Go function:**
+
+```go
+func main() {
+    x := 10    // x = 10
+    x = x + 5   // x = 15 [yellow] ← value changed!
+    y := 20    // y = 20
+    fmt.Println(x + y)
+}
+```
+
+- **Initial value**: `x = 10` appears in gray/green
+- **After change**: `x = 15` appears in **yellow** to highlight the change
+- **New variable**: `y = 20` appears in gray/green (not highlighted)
+
+#### Benefits
+
+- **Visual debugging**: See variable values directly in code without switching windows
+- **Change detection**: Changed values are highlighted in yellow for quick identification
+- **Multi-frame support**: See variables from all stack frames (not just current)
+- **Aligned display**: Values appear at column 80 for consistent layout
+- **Inline mode**: In Neovim 0.10+, values appear inline for better readability
+
+#### Commands (if enabled_commands is true)
+
+| Command | Action |
+|---------|--------|
+| `:DapVirtualTextEnable` | Enable virtual text display |
+| `:DapVirtualTextDisable` | Disable virtual text display |
+| `:DapVirtualTextToggle` | Toggle virtual text display |
+| `:DapVirtualTextForceRefresh` | Force refresh virtual text |
+
 ### How to Debug
 
 #### Python
